@@ -3,13 +3,14 @@ var RND = null
 var GUESS = 0
 
 function promptDisplay(text,action){
-    var name = prompt(text)
-
-    if (name != null) {
-        actions(action,name.trim())
-    }else{
-        promptDisplay(text,action)
+    var name = prompt(text).trim()
+    if (name != null && name != '') {
+        if((action == "age" && (/^[0-9.]+$/).test(name))|| action != "age"){
+            actions(action,name)
+            return 
+        }
     }
+    promptDisplay(text,action)  
 }
 
 function confimName(text){
@@ -53,9 +54,7 @@ function guessNumber(value){
     if (value == RND){
         alert("Finally you got it!")
         return
-    }else if(GUESS == 5){
-        GIVEUP = true    
-    }else if(GUESS >= 5 && GIVEUP){
+    }else if(GUESS >= 5){
         alert("Haha you gave up. Your number is "+RND+"\
         Hint hint if your age is smaller is it is easier to guess")
         return
